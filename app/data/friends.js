@@ -1,4 +1,5 @@
-[
+// Data structure to store friends data
+var friendsArray = [
     {
         "name": "Beth Humphrey",
         "photo": "https://media.licdn.com/https://scontent.fbna1-1.fna.fbcdn.net/v/t1.0-9/98206846_2968652166521938_7305901947893055488_n.jpg?_nc_cat=110&_nc_sid=09cbfe&_nc_ohc=3zZz0dr3lxwAX-zWAxT&_nc_ht=scontent.fbna1-1.fna&oh=29cffc246078a8889cddf293965e56c2&oe=5F29A5CE/mpr/shrinknp_200_200/AAEAAQAAAAAAAAq7AAAAJDAwYzI4NTQ4LWYwZWUtNGFkYS1hNTYwLTZjYzkwY2ViZDA3OA.jpg",
@@ -111,4 +112,6 @@
             "2"
         ]
     } 
-]
+];
+
+module.exports = friendsArray;
