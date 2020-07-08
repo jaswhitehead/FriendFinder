@@ -1,15 +1,14 @@
-//Pull required dependencies
+//Pull required dependencies (Ive seen it done this way: module.exports = function (app, path))
 var path = require("path");
 
-//Export HTML routes
 module.exports = function (app) {
     
-    // Deliver any input from the user to the Home Page.
-    app.get("/", function (req, res) {
+    // Get Request to deliver the Home Page.
+    app.get("*", function (req, res) {
         res.sendFile(path.join(__dirname, "/../public/home.html"));
     });
 
-    // Ddeliver survey page route.
+    // Get request to deliver the Survey page.
     app.get("/survey", function (req, res) {
         res.sendFile(path.join(__dirname, "/../public/survey.html"));
     });
