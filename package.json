@@ -1,0 +1,29 @@
+{
+  "name": "friendfinder",
+  "version": "1.0.0",
+  "description": "This is like a dating app but for friends",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "none",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jaswhitehead/FriendFinder.git"
+  },
+  "keywords": [
+    "Friend",
+    "Finder"
+  ],
+  "author": "Jason Whitehead",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jaswhitehead/FriendFinder/issues"
+  },
+  "homepage": "https://github.com/jaswhitehead/FriendFinder#readme"
+}
