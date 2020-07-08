@@ -10,8 +10,15 @@ var PORT = process.env.PORT || 3000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+var data = require("./app/data/friends.js");
+
+// These routes give the server a "map" of how to respond when users visit or request data from various URLs.
+require("./app/routing/apiRoutes")(app, data);
+require("./app/routing/htmlRoutes")(app, path);
 
 
+// LISTENER
+// The below code effectively "starts" the server
 app.listen(PORT, function () {
     console.log("App listening on PORT " + PORT + '. Go to: http://localhost:'+ PORT);
 });

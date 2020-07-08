@@ -3,15 +3,14 @@ var path = require("path");
 
 module.exports = function (app) {
     
-    // Get Request to deliver the Home Page.
+    // Get Request to route to the Home Page.
     app.get("*", function (req, res) {
-        res.sendFile(path.join(__dirname, "/../public/home.html"));
+        res.sendFile(path.join(__dirname, "../public/home.html"));
     });
 
     // Get request to deliver the Survey page.
     app.get("/survey", function (req, res) {
-        res.sendFile(path.join(__dirname, "/../public/survey.html"));
+        res.sendFile(path.join(__dirname, "../public/survey.html"));
     });
 
-  
 }

@@ -1,5 +1,6 @@
 // Data structure to store friends data
 var friendsArray = [
+
     {
         "name": "Beth Humphrey",
         "photo": "https://media.licdn.com/https://scontent.fbna1-1.fna.fbcdn.net/v/t1.0-9/98206846_2968652166521938_7305901947893055488_n.jpg?_nc_cat=110&_nc_sid=09cbfe&_nc_ohc=3zZz0dr3lxwAX-zWAxT&_nc_ht=scontent.fbna1-1.fna&oh=29cffc246078a8889cddf293965e56c2&oe=5F29A5CE/mpr/shrinknp_200_200/AAEAAQAAAAAAAAq7AAAAJDAwYzI4NTQ4LWYwZWUtNGFkYS1hNTYwLTZjYzkwY2ViZDA3OA.jpg",
@@ -34,7 +35,17 @@ var friendsArray = [
         "name": "Jason Whitehead",
         "photo": "https://scontent.fbna1-2.fna.fbcdn.net/v/t1.0-9/39296_4730091015939_1452621106_n.jpg?_nc_cat=101&_nc_sid=cdbe9c&_nc_ohc=FEozHF3RIbkAX8N0EeH&_nc_ht=scontent.fbna1-2.fna&oh=89302d4f376f030720c4a9ba47846046&oe=5F294C27",
         "scores": ["5","3","1","2","4","1","5","3","2","2"]
-    } 
+    }, 
+    {
+        "name": "Kate Beckinsale",
+        "photo": "https://www.maxim.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cq_auto:good%2Cw_1200/MTY5MTE4MTA3OTkyODU5OTM3/kate-beckinsale-promo.jpg",
+        "scores": ["1","3","5","2","4","3","5","3","1","2"]
+    },
+    {
+        "name": "Mila Kunis",
+        "photo": "https://www.caa.com/sites/default/files/styles/headshot_500x500/public/2019-07/Kunis_CAASpeakers_Headshot.jpg?itok=ho3100AP",
+        "scores": ["1","5","2","5","1","3","3","2","5","2"]
+    }  
 ];
 
 module.exports = friendsArray;
