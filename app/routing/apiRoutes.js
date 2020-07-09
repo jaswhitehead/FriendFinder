@@ -1,9 +1,11 @@
-//Routes (using code form hotRestaurants and starwars)
+var friendData = require("../data/friends");
+
+//Routes
 module.exports = function (app, data) {
 
     // API GET Requests
     app.get("/api/friends", function (req, res) {
-        return res.json(data);
+        return res.json(friendData);
     });
 
     // API POST Requests
@@ -19,3 +21,4 @@ module.exports = function (app, data) {
         res.json(newFriend);
     });
 }
+

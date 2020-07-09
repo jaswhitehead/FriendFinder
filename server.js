@@ -10,11 +10,9 @@ var PORT = process.env.PORT || 3000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-var data = require("./app/data/friends.js");
-
 // These routes give the server a "map" of how to respond when users visit or request data from various URLs.
-require("./app/routing/apiRoutes")(app, data);
-require("./app/routing/htmlRoutes")(app, path);
+require("./app/routing/apiRoutes")(app);
+require("./app/routing/htmlRoutes")(app);
 
 
 // LISTENER
