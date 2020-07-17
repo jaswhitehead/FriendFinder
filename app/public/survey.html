@@ -12,7 +12,15 @@
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    
+    <!-- Jquery Link -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <!-- Bootstrap script link -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"></script>
+    <!-- Font Awesome Link -->
+    <script src="https://kit.fontawesome.com/6de492cf9a.js" crossorigin="anonymous"></script>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&family=Modak&family=Notable&display=swap" rel="stylesheet">
 
@@ -163,89 +171,115 @@
     </div>
     <br>
     <br>
-
     <!-- Submit Button -->
-    <a id="submitButtonId" class="btn-lg btn-block btn-primary text-white text-center">Submit</a>
-    <!-- <button type="submit" class="btn btn-primary btn-lg btn-block" id="submit"><i class="fa fa-check-circle" aria-hidden="true"></i>
-     Submit</button> -->
-
-    <hr>
-    <!-- Footer -->
-    <footer class="footer">
-      <div class="container">
-        <p><a href="/api/friends">API Friends List</a> | <a href="https://github.com/jaswhitehead/FriendFinder">GitHub Repo</a> | <a href="/">Home</a></p>
-      </div>
-    </footer>
-  </div>
-
-  <!-- Results Modal -->
-  <div class="modal" id="myModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-      <!-- Modal content-->
-      <div class="modal-content">
-          <div class="modal-footer">
-            <h5 class="modal-title">Meet your new best friend!</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-      </div>
-      <div class="modal-body">
-          <p id="modalTxt"></p>
-        <div>
-          <img id="imageId" style="width: 140px; height: 140px;">
-        </div>
-      </div>
+      <button type="submit" class="btn btn-primary btn-lg btn-block" id="submit"><i class="fa fa-check-circle" aria-hidden="true"></i>
+        Submit</button>
+      <hr>
+      <footer class="footer">
+               <div class="container">
+                 <p><a href="/api/friends">API Friends List</a> | <a href="https://github.com/jaswhitehead/FriendFinder">GitHub Repo</a> | <a href="/">Home</a></p>
+               </div>
+      </footer>
+  
     </div>
-  </div>
 
-<!--Start script for matching function-->
+    <!-- Modal -->
+    <div id="results-modal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
 
-<script type="text/javascript">
-$("#submitButtonId").click(function () {
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title"><strong>Best Match</strong></h2>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <h2 id="match-name"></h2>
+                    <img id="match-img" src="" alt="">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <script type="text/javascript">
+
+        // On click of submit button event handler
+        $("#submit").on("click", function (event) {
             event.preventDefault();
-            var scoresArr = [];
-            for (var i = 1; i < 11; i++) {
-                scoresArr.push(parseInt($("#Q" + i).val().trim()));
-            }
-            var newSubmission = {
-                name: $("#nameinputId").val().trim(),
-                scores: scoresArr,
-                image: $("#imageinputId").val().trim()
-            }
-            var currFriendsScores = [];
-            var currFriendsNames = [];
-            var currFriendsImages = [];
-            // API GET Requests 
-            $.get("/api/friends", function (data) {
-                for (var i = 0; i < data.length; i++) {
-                    currFriendsScores.push(data[i].scores);
-                    currFriendsNames.push(data[i].name);
-                    currFriendsImages.push(data[i].image);
-                }
-            })
-            // API POST Requests 
-            $.post("/api/friends", newSubmission, function (data) {
-                var diffArray = [];
-                for (var i = 0; i < currFriendsScores.length; i++) {
-                    var diff = 0;
-                    for (var k = 0; k < currFriendsScores[i].length; k++) {
-                        diff += Math.abs(currFriendsScores[i][k] - data.scores[k]);
+            // This block of code will ensure that the form is filled out before allowing user to hit submit
+            function allFilled() {
+                // Make a local variable that holds the truthy value of filledOut
+                var filledOut = true;
+                // This checks if every value is filled out for every form with class="form-control"
+                $(".form-control").each(function () {
+                    // If the value is empty on any of them, filled out is equal to false
+                    if ($(this).val() === "") {
+                        filledOut = false;
                     }
-                    diffArray.push(diff);
-                }
-                var smallestDifferenceIn = diffArray.indexOf(Math.min(...diffArray));
-                var match = currFriendsNames[smallestDifferenceIn];
-                var image = currFriendsImages[smallestDifferenceIn];
-                $("#myModal").modal("toggle");
-                $("#modalTxt").text("Your Match is: " + match);
-                $("#imageId").attr("src", image);
-            });
-            $("#nameinputId").val("");
-            for (var i = 1; i < 11; i++) {
-                $("#Q" + i).val("");
+                });
+                // If they are all filled out then the var filledOut is unchanged and will be true allowing the submission
+                return filledOut;
             }
-        })
+
+            // If allFilled is equal to true, form fields are all filled and user submission is allowed
+            if (allFilled()) {
+                // Take the values of the form and place inside a new object
+                var userData = {
+                    name: $("#name").val().trim().toLowerCase(),
+                    photo: $("#photo").val().trim(),
+                    scores: [
+                        $("#question1").val(),
+                        $("#question2").val(),
+                        $("#question3").val(),
+                        $("#question4").val(),
+                        $("#question5").val(),
+                        $("#question6").val(),
+                        $("#question7").val(),
+                        $("#question8").val(),
+                        $("#question9").val(),
+                        $("#question10").val()
+                    ]
+                };
+                console.log(userData);
+                // This code will post the user input data into the /api/friends array
+                $.post("/api/friends", userData, function (data) {
+                    // Temporary alert that display successful form submission
+                    console.log("Successful submission of your form!");
+
+                    // Grab the result from the AJAX post so that the best match's name and photo are displayed.
+                    $("#match-name").text(data.name);
+                    $("#match-img").attr("src", data.photo);
+
+                    // Show the modal with the best match
+                    $("#results-modal").modal("show");
+
+                    // This line empties the user inputs
+                    $("#name").val("");
+                    $("#photo").val("");
+                    $("#question1").val("");
+                    $("#question2").val("");
+                    $("#question3").val("");
+                    $("#question4").val("");
+                    $("#question5").val("");
+                    $("#question6").val("");
+                    $("#question7").val("");
+                    $("#question8").val("");
+                    $("#question9").val("");
+                    $("#question10").val("");
+                });
+            } else {
+                alert("You have not submitted all fields, please verify your answers!");
+            }
+        });
+
     </script>
+
 </body>
 
 </html>
+© 2020 GitHub, Inc.
